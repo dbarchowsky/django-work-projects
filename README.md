@@ -1,8 +1,6 @@
-# Contact Info
+# Work Projects
 
-Contact info is a simple Django app to manage address data.
-
-Detailed documentation is in the "docs" directory.
+Work Projects is a Django app for managing work projects information.
 
 ## Installation
 
