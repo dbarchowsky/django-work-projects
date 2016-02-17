@@ -4,7 +4,7 @@ Work Projects is a Django app for managing work projects information.
 
 ## Installation
 
-`npm install https://s3-us-west-2.amazonaws.com/nrose-django-packages/django-work-projects-0.1.1.post2.tar.gz` *(or `.zip`)*
+`npm install https://s3-us-west-2.amazonaws.com/nrose-django-packages/django-work-projects-0.1.1-2.tar.gz` *(or `.zip`)*
 
 ## Usage
 
