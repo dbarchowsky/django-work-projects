@@ -16,7 +16,7 @@ class ProjectType(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=100, default="")
-    client = models.ForeignKey('clients.Client')
+    client = models.ForeignKey('work_clients.Client')
     slug = models.SlugField(default="")
     description = models.TextField(blank=True)
     teaser = models.TextField(blank=True)
