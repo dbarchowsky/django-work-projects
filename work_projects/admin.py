@@ -71,10 +71,9 @@ class ProjectSampleInline(admin.StackedInline):
         self.is_not_used()
         try:
             if instance.id:
-                # Replace "myapp" with the name of the app containing
-                # your Certificate model:
+                # URL pattern is app_name+underscore+model_name+underscore+"change":
                 changeform_url = urlresolvers.reverse(
-                    'admin:projects_projectsample_change', args=(instance.id,)
+                    'admin:work_projects_projectsample_change', args=(instance.id,)
                 )
                 return u'<a href="%s" target="_blank">Details</a>' % changeform_url
             return u''

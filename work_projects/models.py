@@ -65,8 +65,8 @@ class Asset(models.Model):
     """Upload files with associated meta data for displaying the
     image in context with information such as caption, description, title, etc."""
 
-    limit = models.Q(app_label='projects', model='projectsample') | \
-            models.Q(app_label='projects', model='gallery')
+    limit = models.Q(app_label='work_projects', model='projectsample') | \
+            models.Q(app_label='work_projects', model='gallery')
     content_type = models.ForeignKey(ContentType, default=0, related_name='assets', limit_choices_to=limit)
     object_id = models.PositiveIntegerField(verbose_name='parent', null=True)
     content_object = GenericForeignKey('content_type', 'object_id')
@@ -93,6 +93,8 @@ class Asset(models.Model):
     tag_names.short_description = "tags"
 
     def parent_name(self):
+        if self.content_object is None:
+            return '';
         return self.content_object.name
     parent_name.short_description = 'parent'
 
@@ -113,7 +115,7 @@ class Tag(models.Model):
 
 
 class Gallery(models.Model):
-    limit = models.Q(app_label='projects', model='projectsample')
+    limit = models.Q(app_label='work_projects', model='projectsample')
     content_type = models.ForeignKey(ContentType, default=0, related_name='galleries', limit_choices_to=limit)
     object_id = models.PositiveIntegerField(default=0)
     content_object = GenericForeignKey('content_type', 'object_id')
@@ -124,6 +126,14 @@ class Gallery(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
+        return self.name
+
+    def related_name(self):
+        """ Label used for autocomplete results in related objects admin pages
+
+        :return: gallery identifier
+        :rtype: str or unicode
+        """
         return self.name
 
     def asset_count(self):
@@ -173,6 +183,10 @@ class ProjectSample(models.Model):
 
     def __str__(self):
         return self.name
+
+    def related_label(self):
+        """ String displayed in autocomplete results for related objects, e.g. assets """
+        return "%s > %s" % (self.project.name, self.name)
 
     def project_full_name(self):
         return self.project.full_name()
